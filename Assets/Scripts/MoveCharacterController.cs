@@ -1,7 +1,6 @@
-﻿using Assets.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MoveCharacter : MonoBehaviour
+public class MoveCharacterController : MonoBehaviour
 {
 
     public float speed = 0.4f;
@@ -10,7 +9,7 @@ public class MoveCharacter : MonoBehaviour
     
     private Rigidbody2D playerRb;
     private bool isGrounded = true;
-    private float direction;
+    private float movement;
     private float jumpCounter;
     private bool isJumping;
 
@@ -24,7 +23,7 @@ public class MoveCharacter : MonoBehaviour
 
     private void Update()
     {
-        direction = Input.GetAxis("Horizontal");
+        movement = Input.GetAxis("Horizontal");
 
         if(Input.GetKey(KeyCode.LeftArrow))
         {
@@ -49,6 +48,8 @@ public class MoveCharacter : MonoBehaviour
         isGrounded = true;
     }
 
+    void OnCollisionEnter2D(Collision2D col) => isGrounded = true;
+
     void OnCollisionExit2D(Collision2D col) => isGrounded = false;
 
     private void Jump()
@@ -66,7 +67,6 @@ public class MoveCharacter : MonoBehaviour
             {
                 playerRb.velocity = Vector2.up * jumpForce;
                 jumpCounter -= Time.deltaTime;
-                Debug.Log(jumpCounter);
             }
             else
                 isJumping = false;
@@ -80,22 +80,22 @@ public class MoveCharacter : MonoBehaviour
     }
     private void Move()
     {
-        playerRb.velocity = new Vector2(speed * direction, playerRb.velocity.y);
+        playerRb.velocity = new Vector2(speed * movement, playerRb.velocity.y);
     }
 
     private void ManageAnimation()
     {
-        bool isMoving = direction != 0;
+        bool isMoving = movement != 0;
         if (isMoving)
         {
             if (isMovingRight)
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.rotation = Quaternion.Euler(0, 0, 0);  
             else
                 transform.rotation = Quaternion.Euler(0, 180, 0);
             
             GetComponent<Animator>().SetFloat("DirectionX", 1);
         }
-        
+
         GetComponent<Animator>().SetBool("Moving", isMoving);
     }
 }
