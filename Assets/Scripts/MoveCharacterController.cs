@@ -4,14 +4,13 @@ public class MoveCharacterController : MonoBehaviour
 {
 
     public float speed = 0.4f;
-    public float jumpForce;
-    public float jumpTime;
-    
+    public float jumpForce = 10f;
+
+    public float fallMultiplier = 2.5f;
+    public float lowJumpMultiplier = 2.5f;
+
     private Rigidbody2D playerRb;
-    private bool isGrounded = true;
     private float movement;
-    private float jumpCounter;
-    private bool isJumping;
 
     private bool isMovingRight;
 
@@ -37,46 +36,26 @@ public class MoveCharacterController : MonoBehaviour
         Jump();
         ManageAnimation();
     }
+
     // Update is called once per frame
     void FixedUpdate()
     {
         Move();
     }
 
-    void OnCollisionStay2D(Collision2D col)
-    {
-        isGrounded = true;
-    }
-
-    void OnCollisionEnter2D(Collision2D col) => isGrounded = true;
-
-    void OnCollisionExit2D(Collision2D col) => isGrounded = false;
-
     private void Jump()
     {
-        if (isGrounded && Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            isJumping = true;
-            jumpCounter = jumpTime;
+        if (Input.GetKeyDown(KeyCode.UpArrow))
             playerRb.velocity = Vector2.up * jumpForce;
-        }
-       
-        if(Input.GetKey(KeyCode.UpArrow) && isJumping)
-        {
-            if (jumpCounter > 0)
-            {
-                playerRb.velocity = Vector2.up * jumpForce;
-                jumpCounter -= Time.deltaTime;
-            }
-            else
-                isJumping = false;
-        }
 
-        if (Input.GetKeyUp(KeyCode.UpArrow))
+        if (playerRb.velocity.y < 0)
         {
-            isJumping = false;
+            playerRb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-
+        else if (playerRb.velocity.y > 0 && !Input.GetKey(KeyCode.UpArrow))
+        {
+            playerRb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
     }
     private void Move()
     {
