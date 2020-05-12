@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-
+    public GameObject mainCanvas;
+    public GameObject characterCambas;
     public void Jugar()
     {
-        
+        mainCanvas.SetActive(false);
+        characterCambas.SetActive(true);
     }
     public void Salir()
     {
