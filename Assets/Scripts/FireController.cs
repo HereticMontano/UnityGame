@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FireController : MonoBehaviour
 {
@@ -23,10 +21,7 @@ public class FireController : MonoBehaviour
             var bRb = lastBulletFire.GetComponent<Rigidbody2D>();
             if(bRb.velocity == Vector2.zero)
             {
-                if(transform.rotation.y == 0)
-                    bRb.velocity = Vector2.right * speedBullet;
-                else
-                    bRb.velocity = Vector2.left * speedBullet;
+                bRb.velocity = (transform.localScale.x == 1 ? Vector2.right : Vector2.left) * speedBullet;
             }
         }
     }
