@@ -8,17 +8,17 @@ public class MoveCharacterController : MonoBehaviour
 
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2.5f;
-    public ParticleSystem particles;
 
     private Rigidbody2D playerRb;
     private float movement;
 
     private bool isMovingRight;
 
+    private bool isGround = true;
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
-        particles.Play();
     }
 
     private void Update()
@@ -39,6 +39,16 @@ public class MoveCharacterController : MonoBehaviour
         ManageAnimation();
     }
 
+    //private void OnCollisionStay2D(Collision2D collision)
+    //{
+    //    isGround = true;
+    //}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isGround = true;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -47,9 +57,11 @@ public class MoveCharacterController : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (isGround && Input.GetKeyDown(KeyCode.UpArrow))
+        {
             playerRb.velocity = Vector2.up * jumpForce;
-
+            isGround = false;
+        }
         if (playerRb.velocity.y < 0)
         {
             playerRb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
