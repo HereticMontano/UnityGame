@@ -8,6 +8,7 @@ public class MoveCharacterController : MonoBehaviour
 
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2.5f;
+    public ParticleSystem particles;
 
     private Rigidbody2D playerRb;
     private float movement;
@@ -17,8 +18,8 @@ public class MoveCharacterController : MonoBehaviour
     void Start()
     {
         playerRb = GetComponent<Rigidbody2D>();
+        particles.Play();
     }
-
 
     private void Update()
     {
@@ -33,6 +34,7 @@ public class MoveCharacterController : MonoBehaviour
             isMovingRight = true;
         }
 
+        //TODO: Mover esto a fixedUpdate (pero la key presionada se tiene que registrar en update)
         Jump();
         ManageAnimation();
     }
@@ -57,6 +59,7 @@ public class MoveCharacterController : MonoBehaviour
             playerRb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
+
     private void Move()
     {
         playerRb.velocity = new Vector2(speed * movement, playerRb.velocity.y);
