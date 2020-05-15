@@ -21,7 +21,7 @@ public class FireController : MonoBehaviour
             var bRb = lastBulletFire.GetComponent<Rigidbody2D>();
             if(bRb.velocity == Vector2.zero)
             {
-                bRb.velocity = (transform.localScale.x == 1 ? Vector2.right : Vector2.left) * speedBullet;
+                bRb.velocity = (transform.rotation.y == 0 ? Vector2.right : Vector2.left) * speedBullet;
             }
         }
     }

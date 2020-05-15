@@ -83,9 +83,9 @@ public class MoveCharacterController : MonoBehaviour
         if (isMoving)
         {
             if (isMovingRight)
-                transform.localScale = new Vector3(1f, 1f, 1f);
+                transform.rotation = Quaternion.Euler(0, 0, 0);
             else
-                transform.localScale = new Vector3(-1f, 1f, 1f);
+                transform.rotation = Quaternion.Euler(0, 180, 0);
 
             GetComponent<Animator>().SetFloat("DirectionX", 1);
         }

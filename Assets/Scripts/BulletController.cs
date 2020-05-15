@@ -5,6 +5,8 @@ using UnityEngine;
 public class BulletController : MonoBehaviour
 {
     public float lifeTime;
+
+    public float damage = 1;
    
     // Update is called once per frame
     void Update()
@@ -19,7 +21,8 @@ public class BulletController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<BaseEnemy>().TakeDamage(damage);
+            Destroy(gameObject);
         }
         else if(collision.gameObject.layer != LayerMask.NameToLayer("Player"))
         {
