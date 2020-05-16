@@ -6,6 +6,10 @@ public class BaseEnemy : MonoBehaviour
 {
     public float lifePoints = 1;
 
+    private void Update()
+    {
+        
+    }
     public void TakeDamage(float damage)
     {
         lifePoints -= damage;
