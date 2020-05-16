@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class MoveCharacterController : MonoBehaviour
 {
@@ -9,12 +10,29 @@ public class MoveCharacterController : MonoBehaviour
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2.5f;
 
+    public LayerMask groundLayer;
+
     private Rigidbody2D playerRb;
     private float movement;
 
     private bool isMovingRight;
+    private bool isJumping = false;
+    private int cantJumps;
+    private bool IsGround
+    {
+        get
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 21, groundLayer);
+            if (hit.collider != null)
+            {
+                isJumping = false;
+                cantJumps = 2;
+                return true;
+            }
 
-    private bool isGround = true;
+            return false;
+        }
+    }
 
     void Start()
     {
@@ -39,11 +57,6 @@ public class MoveCharacterController : MonoBehaviour
         ManageAnimation();
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        isGround = true;
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -52,10 +65,14 @@ public class MoveCharacterController : MonoBehaviour
 
     private void Jump()
     {
-        if (isGround && Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && (IsGround || isJumping))
         {
-            playerRb.velocity = Vector2.up * jumpForce;
-            isGround = false;
+            if (cantJumps > 0)
+            {
+                cantJumps--;
+                isJumping = true;
+                playerRb.velocity = Vector2.up * jumpForce;
+            }
         }
 
         if (playerRb.velocity.y < 0)
