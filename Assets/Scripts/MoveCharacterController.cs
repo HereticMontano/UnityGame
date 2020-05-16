@@ -39,12 +39,7 @@ public class MoveCharacterController : MonoBehaviour
         ManageAnimation();
     }
 
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    isGround = true;
-    //}
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         isGround = true;
     }
@@ -62,6 +57,7 @@ public class MoveCharacterController : MonoBehaviour
             playerRb.velocity = Vector2.up * jumpForce;
             isGround = false;
         }
+
         if (playerRb.velocity.y < 0)
         {
             playerRb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
