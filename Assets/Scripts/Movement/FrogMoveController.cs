@@ -10,6 +10,8 @@ namespace Assets.Scripts.Movement
         private bool isJumping;
         private bool goRight;
 
+        private float desaseleration;
+
         private void Start()
         {
             InvokeRepeating("Move", 0, 2);
