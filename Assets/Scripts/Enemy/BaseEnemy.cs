@@ -6,24 +6,30 @@ public class BaseEnemy : MonoBehaviour
 {
     public float lifePoints = 1;
 
-    private void Update()
+    private Rigidbody2D rb;
+    private void Awake()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
+
     public void TakeDamage(float damage)
     {
         lifePoints -= damage;
         if (lifePoints <= 0)
         {
-            SetDeat();
+            SetDeath();
         }
     }
 
-    private void SetDeat()
+    private void SetDeath()
     {
+        GetComponent<Collider2D>().enabled = false;
+
+        rb.gravityScale = 0;
+        rb.velocity = Vector2.zero;
         GetComponentInChildren<Animator>().SetBool("IsDead", true);
-        GetComponent<CircleCollider2D>().enabled = false;
-        GetComponent<AIPath>().isStopped = true;
+
+        // GetComponent<AIPath>().isStopped = true;
     }
 }
 

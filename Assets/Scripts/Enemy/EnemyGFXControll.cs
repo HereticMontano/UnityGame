@@ -2,7 +2,6 @@
 using UnityEngine;
 public class EnemyGFXControll : MonoBehaviour
 {
-
     public AIPath aiPath;
 
     void Update()

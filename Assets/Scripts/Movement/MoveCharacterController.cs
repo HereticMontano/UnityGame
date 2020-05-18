@@ -1,22 +1,13 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MoveCharacterController : MonoBehaviour
+public class MoveCharacterController : BaseMoveController
 {
-
-    public float speed = 0.4f;
-    public float jumpForce = 10f;
-
-    public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2.5f;
 
     public LayerMask groundLayer;
 
-    private Rigidbody2D playerRb;
     private float movement;
-
     private bool isMovingRight;
-    private bool isJumping = false;
     private int cantJumps;
     private bool IsGround
     {
@@ -25,18 +16,12 @@ public class MoveCharacterController : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 21, groundLayer);
             if (hit.collider != null)
             {
-                isJumping = false;
                 cantJumps = 2;
                 return true;
             }
 
             return false;
         }
-    }
-
-    void Start()
-    {
-        playerRb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -52,7 +37,6 @@ public class MoveCharacterController : MonoBehaviour
             isMovingRight = true;
         }
 
-        //TODO: Mover esto a fixedUpdate (pero la key presionada se tiene que registrar en update)
         Jump();
         ManageAnimation();
     }
@@ -65,32 +49,32 @@ public class MoveCharacterController : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && (IsGround || isJumping))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && (IsGround || cantJumps > 0))
         {
             if (cantJumps > 0)
             {
                 cantJumps--;
-                isJumping = true;
-                playerRb.velocity = Vector2.up * jumpForce;
+                rb.velocity = Vector2.up * jumpForce;
             }
         }
 
-        if (playerRb.velocity.y < 0)
-        {
-            playerRb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-        else if (playerRb.velocity.y > 0 && !Input.GetKey(KeyCode.UpArrow))
-        {
-            playerRb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
+        Fall();
     }
 
-    private void Move()
+    private void Fall()
     {
-        playerRb.velocity = new Vector2(speed * movement, playerRb.velocity.y);
+        if (!BaseFall() && rb.velocity.y > 0 && !Input.GetKey(KeyCode.UpArrow))
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
     }
 
-    private void ManageAnimation()
+    protected override void Move()
+    {
+        rb.velocity = new Vector2(speed * movement, rb.velocity.y);
+    }
+
+    protected override void ManageAnimation()
     {
         bool isMoving = movement != 0;
         if (isMoving)
