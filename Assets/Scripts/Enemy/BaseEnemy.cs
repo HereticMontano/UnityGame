@@ -12,7 +12,6 @@ public abstract class BaseEnemy : MonoBehaviour
         if (lifePoints <= 0)
         {
             SetDeath();
-
         }
     }
 
