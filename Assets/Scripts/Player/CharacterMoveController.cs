@@ -48,7 +48,7 @@ public class CharacterMoveController : BaseMoveController
 
     protected override void Move()
     {
-        if (foot.HitWall)
+        if (!foot.HitWall(isMovingRight))
             rb.velocity = new Vector2(speed * movement, rb.velocity.y);
     }
 

@@ -11,9 +11,10 @@ namespace Assets.Scripts.Player
     {
         public LayerMask groundLayer;
         public Rigidbody2D mainBody;
+        public int cantJumps;
 
         private BoxCollider2D box;
-        private int cantJumps;
+        private int countJumps;
         private void Awake()
         {
             box = GetComponent<BoxCollider2D>();
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Player
                 RaycastHit2D hitLeft = Physics2D.Raycast(box.bounds.min, Vector2.down, 2, groundLayer);
                 if (hitRight.collider != null || hitLeft.collider != null)
                 {
-                    cantJumps = 2;
+                    countJumps = cantJumps;
                     return true;
                 }
 
@@ -38,26 +39,29 @@ namespace Assets.Scripts.Player
             }
         }
 
-        public bool HitWall
+        public bool HitWall(bool checkRight)
         {
-            get
+            RaycastHit2D hit;
+            if (checkRight)
             {
-                //Debug.DrawRay(box.bounds.min, Vector2.left * 21, Color.green, 1);
-                //Debug.DrawRay(box.bounds.max, Vector2.right * 21, Color.red, 1);
-
-                RaycastHit2D hitRight = Physics2D.Raycast(box.bounds.max, Vector2.right, 2, groundLayer);
-                RaycastHit2D hitLeft = Physics2D.Raycast(box.bounds.min, Vector2.left, 2, groundLayer);
-                return hitRight.collider == null && hitLeft.collider == null;
+                hit = Physics2D.Raycast(box.bounds.max, Vector2.right, 5, groundLayer);
+         //       Debug.DrawRay(box.bounds.max, Vector2.right * 21, Color.red, 1);
             }
+            else
+            {
+                hit = Physics2D.Raycast(box.bounds.min, Vector2.left, 5, groundLayer);
+           //     Debug.DrawRay(box.bounds.min, Vector2.left * 21, Color.green, 1);
+            }
+            return hit.collider != null;
         }
 
         public void Jump(float jumpForce)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow) && (IsGround || cantJumps > 0))
+            if (Input.GetKeyDown(KeyCode.UpArrow) && (IsGround || countJumps > 0))
             {
-                if (cantJumps > 0)
+                if (countJumps > 0)
                 {
-                    cantJumps--;
+                    countJumps--;
                     mainBody.velocity = Vector2.up * jumpForce;
                 }
             }
