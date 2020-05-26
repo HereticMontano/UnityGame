@@ -9,16 +9,18 @@ public class CharacterMoveController : BaseMoveController
     private bool isMovingRight;
 
     private FootController foot;
+    private bool showDialog;
 
     private void Start()
     {
         foot = GetComponentInChildren<FootController>();
     }
-   
+
     private void Update()
     {
+
         movement = Input.GetAxis("Horizontal");
-        if(Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             isMovingRight = false;
         }
@@ -30,6 +32,7 @@ public class CharacterMoveController : BaseMoveController
         foot.Jump(jumpForce);
         Fall();
         ManageAnimation();
+
     }
 
     // Update is called once per frame

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Bullet
+  - Cherry
   layers:
   - Default
   - TransparentFX
@@ -42,4 +43,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BackGround
+    uniqueID: 2926559259
+    locked: 0
+  - name: Plataforms
+    uniqueID: 2595772177
+    locked: 0
+  - name: TextBox
+    uniqueID: 1865773059
+    locked: 0
+  - name: Player
+    uniqueID: 1671310659
     locked: 0

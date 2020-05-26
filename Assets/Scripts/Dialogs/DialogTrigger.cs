@@ -13,9 +13,11 @@ namespace Assets.Scripts
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            FindObjectOfType<DialogManagerController>().StarDialog(dialogue);
-            Destroy(gameObject);
+            if (collision.CompareTag("Player"))
+            {
+                FindObjectOfType<DialogManagerController>().StarDialog(dialogue);
+                Destroy(gameObject);
+            }
         }
-        
     }
 }
