@@ -10,6 +10,11 @@ public class DialogManagerController : MonoBehaviour
 
     public GameObject board;
 
+    public bool IsDialogClose
+    {
+        get { return !board.activeSelf; }
+    }
+
     private Dialog actualDialog;
     // Start is called before the first frame update
     void Start()
@@ -24,8 +29,7 @@ public class DialogManagerController : MonoBehaviour
 
         DisplayNextSentence();
 
-        float positionY = Camera.main.OrthographicBounds().max.y - board.GetComponent<RectTransform>().rect.width / 4;
-        board.transform.position = new Vector3(Camera.main.transform.position.x, positionY);
+        MoveCanvas();
         board.SetActive(true);
     }
 
@@ -38,6 +42,17 @@ public class DialogManagerController : MonoBehaviour
             else
                 board.SetActive(false);
         }
+    }
+
+    public void LateUpdate()
+    {
+        MoveCanvas();
+    }
+
+    private void MoveCanvas()
+    {
+        float positionY = Camera.main.OrthographicBounds().max.y - board.GetComponent<RectTransform>().rect.width / 4 ;
+        board.transform.position = new Vector3(Camera.main.transform.position.x, positionY);
     }
 
     private void DisplayNextSentence()

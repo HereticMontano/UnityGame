@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Bullet
   - Cherry
+  - Fall
+  - Spawn
   layers:
   - Default
   - TransparentFX

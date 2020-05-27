@@ -16,7 +16,6 @@ namespace Assets.Scripts
             if (collision.CompareTag("Player"))
             {
                 FindObjectOfType<DialogManagerController>().StarDialog(dialogue);
-                Destroy(gameObject);
             }
         }
     }
