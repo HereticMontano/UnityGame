@@ -9,6 +9,7 @@ TagManager:
   - Cherry
   - Fall
   - Spawn
+  - Box
   layers:
   - Default
   - TransparentFX

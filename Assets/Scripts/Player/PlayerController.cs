@@ -22,6 +22,10 @@ namespace Assets.Scripts.Player
                 GetComponent<Rigidbody2D>().velocity = new Vector2();
                 transform.position = spawnPoint;
             }
+            else if(collision.CompareTag("Box"))
+            {
+                GetComponent<Rigidbody2D>().velocity = new Vector2();
+            }
         }
     }
 }
