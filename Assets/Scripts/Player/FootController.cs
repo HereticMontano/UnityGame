@@ -13,11 +13,11 @@ namespace Assets.Scripts.Player
         public Rigidbody2D mainBody;
         public int cantJumps;
 
-        private BoxCollider2D box;
+        private  CapsuleCollider2D capsule;
         private int countJumps;
         private void Awake()
         {
-            box = GetComponent<BoxCollider2D>();
+            capsule = GetComponent<CapsuleCollider2D>();
         }
 
         public bool IsGround
@@ -27,8 +27,8 @@ namespace Assets.Scripts.Player
                 //Debug.DrawRay(box.bounds.max, Vector2.down * 21, Color.red, 1);
                 //Debug.DrawRay(box.bounds.min, Vector2.down * 21, Color.green, 1);
 
-                RaycastHit2D hitRight = Physics2D.Raycast(box.bounds.max, Vector2.down, 2, groundLayer);
-                RaycastHit2D hitLeft = Physics2D.Raycast(box.bounds.min, Vector2.down, 2, groundLayer);
+                RaycastHit2D hitRight = Physics2D.Raycast(capsule.bounds.max, Vector2.down, 2, groundLayer);
+                RaycastHit2D hitLeft = Physics2D.Raycast(capsule.bounds.min, Vector2.down, 2, groundLayer);
                 if (hitRight.collider != null || hitLeft.collider != null)
                 {
                     countJumps = cantJumps;
@@ -44,12 +44,12 @@ namespace Assets.Scripts.Player
             RaycastHit2D hit;
             if (checkRight)
             {
-                hit = Physics2D.Raycast(box.bounds.max, Vector2.right, 5, groundLayer);
+                hit = Physics2D.Raycast(capsule.bounds.max, Vector2.right, 5, groundLayer);
          //       Debug.DrawRay(box.bounds.max, Vector2.right * 21, Color.red, 1);
             }
             else
             {
-                hit = Physics2D.Raycast(box.bounds.min, Vector2.left, 5, groundLayer);
+                hit = Physics2D.Raycast(capsule.bounds.min, Vector2.left, 5, groundLayer);
            //     Debug.DrawRay(box.bounds.min, Vector2.left * 21, Color.green, 1);
             }
             return hit.collider != null;

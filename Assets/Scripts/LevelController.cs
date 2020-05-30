@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
@@ -14,4 +15,5 @@ public class LevelController : MonoBehaviour
         levelContainer.SetActive(true);
         canvasContainer.SetActive(false);
     }
+
 }
