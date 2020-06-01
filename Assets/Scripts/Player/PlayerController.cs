@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
+
+        public GameObject weaponsSystem;
 
         private Vector2 spawnPoint;
         private void OnTriggerEnter2D(Collider2D collision)
@@ -11,6 +14,11 @@ namespace Assets.Scripts.Player
             if (collision.CompareTag("Cherry"))
             {
                 GetComponentInChildren<FootController>().cantJumps = 2;
+                Destroy(collision.gameObject);
+            }
+            else if (collision.CompareTag("Cristal"))
+            {
+                weaponsSystem.SetActive(true);
                 Destroy(collision.gameObject);
             }
             else if (collision.CompareTag("Spawn"))

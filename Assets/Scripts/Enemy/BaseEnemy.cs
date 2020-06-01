@@ -17,6 +17,7 @@ public abstract class BaseEnemy : MonoBehaviour
 
     protected virtual void SetDeath()
     {
+        GetComponent<AudioSource>().Play();
         GetComponent<Collider2D>().enabled = false;
         GetComponentInChildren<Animator>().SetBool("IsDead", true);
     }

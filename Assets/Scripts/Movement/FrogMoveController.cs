@@ -9,10 +9,11 @@ namespace Assets.Scripts.Movement
 
         private bool isJumping;
         private bool goRight;
-
+        private int countJumps;
         private void Start()
         {
             InvokeRepeating("Move", 0, 2);
+            countJumps = CantJumps;
         }
 
         private void Update()
@@ -20,7 +21,7 @@ namespace Assets.Scripts.Movement
             if (rb.velocity == Vector2.zero)
             {
                 isJumping = false;
-                if (CantJumps <= 0)
+                if (countJumps <= 0)
                 {
                     if (!goRight)
                         GetComponentInChildren<Transform>().rotation = Quaternion.Euler(0, 180, 0);
@@ -28,7 +29,7 @@ namespace Assets.Scripts.Movement
                         GetComponentInChildren<Transform>().rotation = Quaternion.Euler(0, 0, 0);
 
                     goRight = !goRight;
-                    CantJumps = 2;
+                    countJumps = CantJumps;
                 }
             }
 
@@ -47,7 +48,7 @@ namespace Assets.Scripts.Movement
             {
                 rb.velocity = new Vector2(speed * (goRight ? 1 : -1), jumpForce);
                 isJumping = true;
-                CantJumps--;
+                countJumps--;
             }
         }
 

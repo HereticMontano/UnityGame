@@ -10,6 +10,7 @@ TagManager:
   - Fall
   - Spawn
   - Box
+  - Cristal
   layers:
   - Default
   - TransparentFX

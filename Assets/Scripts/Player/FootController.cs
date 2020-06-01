@@ -24,12 +24,14 @@ namespace Assets.Scripts.Player
         {
             get
             {
-                //Debug.DrawRay(box.bounds.max, Vector2.down * 21, Color.red, 1);
-                //Debug.DrawRay(box.bounds.min, Vector2.down * 21, Color.green, 1);
+                //Debug.DrawRay(capsule.bounds.max, Vector2.down * 10, Color.red, 1);
+                //Debug.DrawRay(capsule.bounds.center, Vector2.down * 10, Color.blue, 1);
+                //Debug.DrawRay(capsule.bounds.min, Vector2.down * 10, Color.green, 1);
 
-                RaycastHit2D hitRight = Physics2D.Raycast(capsule.bounds.max, Vector2.down, 2, groundLayer);
-                RaycastHit2D hitLeft = Physics2D.Raycast(capsule.bounds.min, Vector2.down, 2, groundLayer);
-                if (hitRight.collider != null || hitLeft.collider != null)
+                RaycastHit2D hitRight = Physics2D.Raycast(capsule.bounds.max, Vector2.down, 10, groundLayer);
+                RaycastHit2D hitLeft = Physics2D.Raycast(capsule.bounds.min, Vector2.down, 10, groundLayer);
+                RaycastHit2D hitCenter = Physics2D.Raycast(capsule.bounds.center, Vector2.down, 10, groundLayer);
+                if (hitCenter.collider != null || hitRight.collider != null || hitLeft.collider != null )
                 {
                     countJumps = cantJumps;
                     return true;

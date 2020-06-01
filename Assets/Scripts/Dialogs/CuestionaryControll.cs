@@ -15,19 +15,9 @@ public class CuestionaryControll : MonoBehaviour
     private Questions actualQuestion;
     private TextMeshProUGUI body;
 
-    private bool isAQuestion
-    {
-        get
-        {
-            //if (actualQuestion != null && !actualQuestion.AnswerShi.HasValue)
-            //    return true;
+    private bool IsAQuestion => actualQuestion != null && !actualQuestion.Answer.HasValue;
+    
 
-            //return false;
-
-            return actualQuestion != null && !actualQuestion.Answer.HasValue;
-        }
-    }
-    // Start is called before the first frame update
     void Start()
     {
         dialogs = new Queue<Questions>();
@@ -38,7 +28,7 @@ public class CuestionaryControll : MonoBehaviour
 
     public void Answer(bool answer)
     {
-        if (!isAQuestion)
+        if (!IsAQuestion)
         {
             if (actualQuestion.Answer == answer)
             {
@@ -53,13 +43,13 @@ public class CuestionaryControll : MonoBehaviour
 
     public void Update()
     {
-        if (isAQuestion && Input.GetKeyDown(KeyCode.Return))
+        if (IsAQuestion && Input.GetKeyDown(KeyCode.Return))
         {
             DisplayNextSentence();
         }
 
         var foot = board.GetComponentsInChildren<TextMeshProUGUI>().First(x => x.name == "Foot");
-        foot.enabled = isAQuestion;
+        foot.enabled = IsAQuestion;
     }
 
     private void DisplayNextSentence()
@@ -85,9 +75,8 @@ public class CuestionaryControll : MonoBehaviour
         dialogs.Enqueue(new Questions() { Question = "Ahora es un juego de preguntas y respuestas, pegale un cabeza al bloque que sea la respuesta correcta" });
         dialogs.Enqueue(new Questions() { Question = "Pessoa ¿murio en 1935?", Answer = respuesta.Next(2) == 1 });
         dialogs.Enqueue(new Questions() { Question = "Si la pregunta es Shi, ¿cual es la respuesta?", Answer = false});
-        
-        dialogs.Enqueue(new Questions() { Question = "Si la pregunta es Shi, ¿cual es la respuesta?", Answer = respuesta.Next(2) == 1 });
-        dialogs.Enqueue(new Questions() { Question = "Si la pregunta es Shi, ¿cual es la respuesta?", Answer = respuesta.Next(2) == 1 });
+        dialogs.Enqueue(new Questions() { Question = "Es 2 + 2 + 2 = 222", Answer = respuesta.Next(2) == 1 });
+        dialogs.Enqueue(new Questions() { Question = "Si la pregunta es Shu, ¿cual es la respuesta?", Answer = true });
     }
 }
 
