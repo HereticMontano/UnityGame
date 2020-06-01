@@ -8895,6 +8895,7 @@ GameObject:
   - component: {fileID: 2071238191}
   - component: {fileID: 2071238192}
   - component: {fileID: 2071238193}
+  - component: {fileID: 2071238194}
   m_Layer: 0
   m_Name: Pelotita
   m_TagString: Cherry
@@ -9024,6 +9025,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 10.5
+--- !u!114 &2071238194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071238188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460ca03675a4fe54b90a586d56340d79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2087097750
 GameObject:
   m_ObjectHideFlags: 0
@@ -9255,6 +9268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3942f57159f564b47a8ec7b5a38d5993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponsSystem: {fileID: 0}
 --- !u!1 &2135451284
 GameObject:
   m_ObjectHideFlags: 0

@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 10
   damage: 1
-  speedBullet: 300
+  speedBullet: 400
 --- !u!82 &-434054566617187309
 AudioSource:
   m_ObjectHideFlags: 0

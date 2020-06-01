@@ -14,18 +14,18 @@ namespace Assets.Scripts.Player
             if (collision.CompareTag("Cherry"))
             {
                 GetComponentInChildren<FootController>().cantJumps = 2;
-                Destroy(collision.gameObject);
+                //Destroy(collision.gameObject);
             }
             else if (collision.CompareTag("Cristal"))
             {
                 weaponsSystem.SetActive(true);
-                Destroy(collision.gameObject);
+              //  Destroy(collision.gameObject);
             }
             else if (collision.CompareTag("Spawn"))
             {
                 spawnPoint = transform.position;
             }
-            else if (collision.CompareTag("Fall"))
+            else if (collision.CompareTag("Fall") || collision.CompareTag("Enemy"))
             {
                 GetComponent<Rigidbody2D>().velocity = new Vector2();
                 transform.position = spawnPoint;
