@@ -41,22 +41,6 @@ namespace Assets.Scripts.Player
             }
         }
 
-        public bool HitWall(bool checkRight)
-        {
-            RaycastHit2D hit;
-            if (checkRight)
-            {
-                hit = Physics2D.Raycast(capsule.bounds.max, Vector2.right, 5, groundLayer);
-         //       Debug.DrawRay(box.bounds.max, Vector2.right * 21, Color.red, 1);
-            }
-            else
-            {
-                hit = Physics2D.Raycast(capsule.bounds.min, Vector2.left, 5, groundLayer);
-           //     Debug.DrawRay(box.bounds.min, Vector2.left * 21, Color.green, 1);
-            }
-            return hit.collider != null;
-        }
-
         public void Jump(float jumpForce)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow) && (IsGround || countJumps > 0))
@@ -64,7 +48,7 @@ namespace Assets.Scripts.Player
                 if (countJumps > 0)
                 {
                     countJumps--;
-                    mainBody.velocity = Vector2.up * jumpForce;
+                    mainBody.velocity = new Vector2(mainBody.velocity.x, jumpForce);
                 }
             }
         }

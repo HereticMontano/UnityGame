@@ -11,6 +11,7 @@ TagManager:
   - Spawn
   - Box
   - Cristal
+  - Shuttle
   layers:
   - Default
   - TransparentFX

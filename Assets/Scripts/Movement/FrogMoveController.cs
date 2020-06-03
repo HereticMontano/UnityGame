@@ -56,7 +56,7 @@ namespace Assets.Scripts.Movement
         {
             if (rb.velocity.y > 0)
                 GetComponentInChildren<Animator>().SetBool("IsJumping", true);
-            else if (rb.velocity.y < 0)
+            else if (rb.velocity.y <= 0)
                 GetComponentInChildren<Animator>().SetBool("IsJumping", false);
 
         }
